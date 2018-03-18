@@ -1,0 +1,44 @@
+个人信息篇
+${name}		姓名 11
+${sex}		性别
+${birthday}	出生年月
+${nation}	民族 10
+${native_place}	籍贯 20
+${edu}		学历  15
+${major}	专业  15
+${email}	电子邮件 50
+${work_year}	工作年限 5
+${telphone}	联系电话 20
+
+教育
+${graduate_time_start} 毕业开始时间
+${graduate_time_end}	毕业结束时间
+${edu_major}	教育背景-专业
+${edu_school}	教育背景-学校
+${edu}          学历
+
+${work_time_start}	工作开始时间
+${work_time_end}	工作结束时间
+${company}	公司
+${position}	职位
+
+
+${job}	岗位
+${money}	薪资
+${city}     期望城市
+
+${skill}	个人技能
+
+
+${pro_name}	项目名称
+${pro_time_start}项目开始时间
+${pro_time_end}	项目结束时间
+${operation}	运行环境
+${pro_description}项目描述
+${duty_description}责任描述
+${tool}         开发工具
+${art}          涉及技术及框架
+
+
+
+${evaluate}	   个人评价 300
