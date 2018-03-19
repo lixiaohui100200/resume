@@ -10,8 +10,8 @@
     <title>Starter Template for Bootstrap</title>
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link href="index.css" rel="stylesheet">
-    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link href="{{asset('resume/css/index.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('layui/css/layui.css')}}">
 </head>
 
 <body style="background-color: #00c790">
@@ -77,8 +77,13 @@
             <div class="resume_top">
                 <div class="resume_basic" id="information">
                     <h2>张三</h2>
+                    <div class="null_message">
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                        添加基本信息
+                    </div>
                     <div class="information_border" data-toggle="modal" data-target="#information_model">
-                        <span class="glyphicon glyphicon-pencil"></span>
+
+                       {{-- <span class="glyphicon glyphicon-pencil"></span>
                         <div><span>性别</span>：<span>男</span></div>
                         <div><span>年龄</span>：<span>23</span></div>
                         <div><span>民族</span>：<span>汉族</span></div>
@@ -87,7 +92,7 @@
                         <div><span>工作年限</span>：<span>2年</span></div>
                         <div><span>专业</span>：<span>投资学</span></div>
                         <div><span>电话</span>：<span>18656666643</span></div>
-                        <div><span>邮箱</span>：<span>li_xiaohui7510@163.com</span></div>
+                        <div><span>邮箱</span>：<span>li_xiaohui7510@163.com</span></div>--}}
                     </div>
                 </div>
                 <div class="resume_down">
@@ -97,6 +102,10 @@
                             <dt>
                                 <span class="resume_title">求职意向</span><span class="resume_title_t"></span>
                             </dt>
+                            <div class="null_message">
+                                <span class="glyphicon glyphicon-plus-sign"></span>
+                                添加基本信息
+                            </div>
                             <dd>
                                 <div class="intention_content">
                                     <div class="intention_border" data-toggle="modal" data-target="#intenntion_model">
@@ -597,7 +606,7 @@
 
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="index.js"></script>
-<script src="../layui/layui.js"></script>
+<script src="{{asset('resume/js/index.js')}}"></script>
+<script src="{{asset('layui/layui.js')}}"></script>
 </body>
 </html>

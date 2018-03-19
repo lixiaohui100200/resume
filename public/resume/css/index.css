@@ -256,3 +256,19 @@
     cursor:pointer;
     display: block;
 }
+
+/*
+添加样式
+*/
+.container .row .null_message {
+    border: 2px dashed #4646467a;
+    width: 800px;
+    height: 80px;
+    border-radius:10px;
+    line-height: 80px;
+    text-align: center;
+    color: #00c790;
+    background: #eae8e8;
+    font-size: 16px;
+}
+
