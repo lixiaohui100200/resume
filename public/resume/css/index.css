@@ -261,6 +261,7 @@
 添加样式
 */
 .container .row .null_message {
+    margin-top: 30px;
     border: 2px dashed #4646467a;
     width: 800px;
     height: 80px;
@@ -270,5 +271,12 @@
     color: #00c790;
     background: #eae8e8;
     font-size: 16px;
+    cursor:pointer;
+}
+/*空的内容移上变小手*/
+.container .row .null_message:hover{
+    background-color: white;
+    border: 2px dashed #00c890;
+
 }
 

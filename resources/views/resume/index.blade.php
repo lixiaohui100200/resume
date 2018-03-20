@@ -77,23 +77,24 @@
             <div class="resume_top">
                 <div class="resume_basic" id="information">
                     <h2>张三</h2>
-                    <div class="null_message">
+                    @if(empty($information))
+                    <div class="null_message" data-toggle="modal" data-target="#information_model">
                         <span class="glyphicon glyphicon-plus-sign"></span>
                         添加基本信息
                     </div>
+                    @else
                     <div class="information_border" data-toggle="modal" data-target="#information_model">
 
-                       {{-- <span class="glyphicon glyphicon-pencil"></span>
-                        <div><span>性别</span>：<span>男</span></div>
-                        <div><span>年龄</span>：<span>23</span></div>
-                        <div><span>民族</span>：<span>汉族</span></div>
-                        <div><span>籍贯</span>：<span>黑龙江</span></div>
-                        <div><span>学历</span>：<span>大专</span></div>
-                        <div><span>工作年限</span>：<span>2年</span></div>
-                        <div><span>专业</span>：<span>投资学</span></div>
-                        <div><span>电话</span>：<span>18656666643</span></div>
-                        <div><span>邮箱</span>：<span>li_xiaohui7510@163.com</span></div>--}}
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <div><span>性别</span>：<span>{{$information['sex']}}</span></div>
+                        <div><span>年龄</span>：<span>{{$information['birthday']}}</span></div>
+                        <div><span>民族</span>：<span>{{$information['nation']}}</span></div>
+                        <div><span>籍贯</span>：<span>{{$information['native_place']}}</span></div>
+                        <div><span>工作年限</span>：<span>{{$information['work_year']}}</span></div>
+                        <div><span>电话</span>：<span>{{$information['telphone']}}</span></div>
+                        <div><span>邮箱</span>：<span>{{$information['email']}}</span></div>
                     </div>
+                        @endif
                 </div>
                 <div class="resume_down">
                     <!--求职意向-->
@@ -106,7 +107,7 @@
                                 <span class="glyphicon glyphicon-plus-sign"></span>
                                 添加基本信息
                             </div>
-                            <dd>
+                            {{--<dd>
                                 <div class="intention_content">
                                     <div class="intention_border" data-toggle="modal" data-target="#intenntion_model">
                                         <span class="glyphicon glyphicon-pencil glyphicon_edit"></span>
@@ -121,7 +122,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </dd>
+                            </dd>--}}
                         </dl>
                     </div>
                     <!--专业技能-->

@@ -17,45 +17,45 @@ use PhpOffice\PhpWord\TemplateProcessor;
 class ResumeController extends Controller
 {
     //简历书写主界面
-    public function index($yes=null)
+    public function index($re_id)
     {
-        $info_id = 1;
-        $user_id = 38;//session('user_id');
         //基本信息
-        $information = Information::get_information($info_id,$user_id);
-        //获得教育经历
-        $education = Graduate::get_edu($info_id);
-        //查询工作经历
-        $work = Work::get_work($info_id);
-        //查询专业技能
-        $skill = Skill::get_sk($info_id);
-        //查询项目
-        $project = Project::get_pro($info_id);
-        //查询求职意向
-        $intention = Intention::get_inten($info_id);
-        //查询个人评价
-        $evaluate = Evaluate::get_eval($info_id);
+        $information = Information::get_information($re_id);
+        if (!empty($information)){
+            $information = $information[0];
+            $info_id = $information['info_id'];//第一份简历
+            //获得教育经历
+            $education = Graduate::get_edu($info_id);
+            //查询工作经历
+            $work = Work::get_work($info_id);
+            //查询专业技能
+            $skill = Skill::get_sk($info_id);
+            //查询项目
+            $project = Project::get_pro($info_id);
+            //查询求职意向
+            $intention = Intention::get_inten($info_id);
+            //查询个人评价
+            $evaluate = Evaluate::get_eval($info_id);
 
-        function birthday($birthday){
-            $age = strtotime($birthday);
-            if($age === false){
-                return false;
+            function birthday($birthday){
+                $age = strtotime($birthday);
+                if($age === false){
+                    return false;
+                }
+                list($y1,$m1,$d1) = explode("-",date("Y-m-d",$age));
+                $now = strtotime("now");
+                list($y2,$m2,$d2) = explode("-",date("Y-m-d",$now));
+                $age = $y2 - $y1;
+                if((int)($m2.$d2) < (int)($m1.$d1))
+                    $age -= 1;
+                return $age;
             }
-            list($y1,$m1,$d1) = explode("-",date("Y-m-d",$age));
-            $now = strtotime("now");
-            list($y2,$m2,$d2) = explode("-",date("Y-m-d",$now));
-            $age = $y2 - $y1;
-            if((int)($m2.$d2) < (int)($m1.$d1))
-                $age -= 1;
-            return $age;
+            $information['birthday'] = $information['birthday'] ? birthday($information['birthday']):0;
         }
-        $information['birthday'] = $information['birthday'] ? birthday($information['birthday']):0;
-        if (!$yes){
-            return view('resume.myresume',compact('information','education','work','skill','project','intention','evaluate'));
-        }else{
-            return compact('information','education','work','skill','project','intention','evaluate');
 
-        }
+        //dd($information);
+        return view('resume.index',compact('information','education','work','skill','project','intention','evaluate'));
+
 
     }
 

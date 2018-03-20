@@ -3,7 +3,7 @@
 /*
  * 简历模块start
  */
-Route::any('resume_list','Home\ResumeController@index');
+Route::any('/{re_id}','Home\ResumeController@index');
 //简历生产模板
 Route::any('resume_template','Home\ResumeController@template');
 //添加基本信息
@@ -21,7 +21,7 @@ Route::any('re_add_sk/{sk_id?}','Home\ResumeController@add_skill');
 //添加工作经历
 Route::any('re_add_work/{work_id?}','Home\ResumeController@add_work');
 
-Route::any('/','Home\IndexController@index');
+
 /*
  * 简历模块end
  */

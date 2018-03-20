@@ -25,10 +25,8 @@ class Information extends Model
     
     //获取基本信息
     
-    static public function get_information($info_id,$user_id)
+    static public function get_information($re_id)
     {
-        return self::where('info_id',$info_id)
-            ->where('user_id',$user_id)
-            ->first()->toArray();
+        return self::where('re_id',$re_id)->get()->toArray();
     }
 }
