@@ -50,10 +50,8 @@ class ResumeController extends Controller
                     $age -= 1;
                 return $age;
             }
-            $information['birthday'] = $information['birthday'] ? birthday($information['birthday']):0;
+            $information['age'] = $information['birthday'] ? birthday($information['birthday']):0;
         }
-
-        //dd($information);
         return view('resume.index',compact('information','education','work','skill','project','intention','evaluate'));
 
 

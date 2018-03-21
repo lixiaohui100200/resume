@@ -87,7 +87,7 @@
 
                         <span class="glyphicon glyphicon-pencil"></span>
                         <div><span>性别</span>：<span>{{$information['sex']}}</span></div>
-                        <div><span>年龄</span>：<span>{{$information['birthday']}}</span></div>
+                        <div><span>年龄</span>：<span>{{$information['age']}}</span></div>
                         <div><span>民族</span>：<span>{{$information['nation']}}</span></div>
                         <div><span>籍贯</span>：<span>{{$information['native_place']}}</span></div>
                         <div><span>工作年限</span>：<span>{{$information['work_year']}}</span></div>
@@ -306,49 +306,50 @@
 
             <div class="modal-body ">
                 <form class="layui-form form-inline">
+                    {{csrf_field()}}
                     <div class="form-group">
                         <label>姓名</label>
-                        <input type="text" class="form-control" id="username" data-content="" data-placement="top">
+                        <input type="text" name="name" class="form-control" id="username" value="{{$information['name'] or ''}}" data-content="" data-placement="top">
                     </div>
                     <div class="form-group">
                         <label>性别</label>
-                        <input type="radio" name="sex" value="nan" title="男" checked>
-                        <input type="radio" name="sex" value="nv" title="女" >
+                        <input type="radio" name="sex" value="男" title="男" @if(!empty($information) && $information['sex']=='男') checked @else checked @endif>
+                        <input type="radio" name="sex" value="女" title="女" @if(!empty($information) && $information['sex']=='女') checked @endif>
                     </div>
                     <div class="form-group">
                         <label>出生年月</label>
-                        <input type="text" id="birthday" class="layui-input form-control">
+                        <input type="text" name="birthday" id="birthday" value="{{$information['birthday'] or ''}}" class="layui-input form-control">
                     </div>
                     <div class="form-group">
                         <label>民族</label>
-                        <input type="text" class="form-control">
+                        <input type="text" name="nation" value="{{$information['nation'] or ''}}" class="form-control">
                     </div>
                     <div class="form-group">
                         <label>籍贯</label>
-                        <input type="text" class="form-control">
+                        <input type="text" name="native_place" value="{{$information['native_place'] or ''}}" class="form-control">
                     </div>
                     <div class="form-group" style="display: inline-block">
                         <label>工作年限</label>
-                        <select name="city"  lay-verify="">
-                            <option value="">请选择</option>
-                            <option value="1年">1年</option>
-                            <option value="2年">2年</option>
-                            <option value="3年">3年</option>
-                            <option value="4年">4年</option>
-                            <option value="5年">5年</option>
+                        <select name="work_year"  lay-verify="" >
+                            <option value="1年" @if(!empty($information) && $information['work_year']=='1年') selected @endif>1年</option>
+                            <option value="2年" @if(!empty($information) && $information['work_year']=='2年') selected @endif>2年</option>
+                            <option value="3年" @if(!empty($information) && $information['work_year']=='3年') selected @endif>3年</option>
+                            <option value="4年" @if(!empty($information) && $information['work_year']=='4年') selected @endif>4年</option>
+                            <option value="5年" @if(!empty($information) && $information['work_year']=='5年') selected @endif>5年</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>电话</label>
-                        <input type="text" class="form-control" id="tel_phone" data-content="" data-placement="top">
+                        <input type="text" class="form-control" id="tel_phone" name="telphone" value="{{$information['telphone'] or ''}}" data-content="" data-placement="top">
                     </div>
                     <div class="form-group">
                         <label>邮箱</label>
-                        <input type="text" class="form-control" id="email" data-content="" data-placement="top">
-                        <a ></a>
+                        <input type="text" class="form-control" id="email" name="email" value="{{$information['email'] or ''}}" data-content="" data-placement="top">
+
                     </div>
+                    <input type="hidden" value="{{$information?$information['info_id']:myClass::encode('abcde')}}">
                 </form>
-            </div>
+        </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary information_btn"
                         style="background-color: #2bd8ae;border: 1px solid #2bd8ae">保存
@@ -607,7 +608,13 @@
 
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+@section('script')
 <script src="{{asset('resume/js/index.js')}}"></script>
+@show
 <script src="{{asset('layui/layui.js')}}"></script>
+
+<script>
+$
+</script>
 </body>
 </html>
