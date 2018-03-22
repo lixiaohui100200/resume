@@ -3,11 +3,13 @@
 /*
  * 简历模块start
  */
-Route::any('/{re_id}','Home\ResumeController@index');
+Route::any('/resume/{re_id}','Home\ResumeController@index');
+Route::any('/','Home\IndexController@newResume');
+Route::any('/add_res/','Home\IndexController@add_resume');
 //简历生产模板
 Route::any('resume_template','Home\ResumeController@template');
 //添加基本信息
-Route::any('re_add_info/{info_id?}','Home\ResumeController@add_information');
+Route::any('re_add_info/{re_id}','Home\ResumeController@add_information');
 //添加教育模块
 Route::any('re_add_graduate/{edu_id?}','Home\ResumeController@add_graduate');
 //添加个人评价

@@ -20,6 +20,10 @@ class ResumeController extends Controller
     public function index($re_id)
     {
         //基本信息
+        $re_id = \myClass::decode($re_id);
+        if (!is_numeric($re_id)) {
+            return redirect('/');
+        }
         $information = Information::get_information($re_id);
         if (!empty($information)){
             $information = $information[0];
@@ -131,22 +135,22 @@ class ResumeController extends Controller
     }
 
     //添加或修改基本信息
-    public function add_information(Request $request,$info_id=null)
+    public function add_information(Request $request,$re_id)
     {
+        $re_id = \myClass::decode($re_id);
+        return $re_id;
         if ($request->isMethod('post')){
             $input = $request->only('name','sex','birthday','nation','native_place',
-                'edu','major','email','work_year','telphone');
+                'email','work_year','telphone');
             $input = $this->html($input);
             $rule = [
                 'name' => 'required|max:20',
                 'sex' => 'required|max:2',
-                'birthday' => 'required|max:10',
-                'nation' => 'required|max:10',
-                'native_place' => 'required|max:20',
-                'edu' => 'required|max:15',
-                'major' => 'required|max:15',
+                'birthday' => 'max:10',
+                'nation' => 'max:10',
+                'native_place' => 'max:20',
                 'email' => 'required|max:50',
-                'work_year' => 'required|max:5',
+                'work_year' => 'max:5',
                 'telphone' => 'required|max:20',
             ];
             $message = [
@@ -154,19 +158,11 @@ class ResumeController extends Controller
                 'name.max' => '姓名长度不能超过11位',
                 'sex.required' => '性别不能为空',
                 'sex.max' => '性别长度不能超过2位',
-                'birthday.required' => '生日不能为空',
                 'birthday.max' => '生日长度不能超过10位',
-                'nation.required' => '民族不能为空',
                 'nation.max' => '民族长度不能超过10',
-                'native_place.required' => '籍贯不能为空',
                 'native_place.max' => '籍贯长度不能超过20位',
-                'edu.required' => '学历不能为空',
-                'edu.max' => '学历长度不能超过15位',
-                'major.required' => '专业不能为空',
-                'major.max' => '专业长度不能超过15位',
                 'email.required' => '邮箱不能为空',
                 'email.max' => '邮箱长度不能超过50位',
-                'work_year.required' => '工作年限不能为空',
                 'work_year.max' => '工作年限长度不能超过5位',
                 'telphone.required' => '电话不能为空',
                 'telphone.max' => '电话长度不能超过20',

@@ -20,11 +20,13 @@ class myClass
         $right = substr($encode, 2);
         $ag = self::random_string();
         $str = $left . $ag . $right;
+        $str = urlencode($str);
         return $str;
     }
 
     static function decode($str)
     {
+        $str = urldecode($str);
         $str = substr($str, 0, 3) . substr($str, 12);
         $str = base64_decode($str);
         return $str;

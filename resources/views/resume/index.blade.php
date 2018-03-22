@@ -305,7 +305,7 @@
             </div>
 
             <div class="modal-body ">
-                <form class="layui-form form-inline">
+                <form class="layui-form form-inline" id="information_data">
                     {{csrf_field()}}
                     <div class="form-group">
                         <label>姓名</label>
@@ -347,7 +347,8 @@
                         <input type="text" class="form-control" id="email" name="email" value="{{$information['email'] or ''}}" data-content="" data-placement="top">
 
                     </div>
-                    <input type="hidden" value="{{$information?$information['info_id']:myClass::encode('abcde')}}">
+                    <input type="hidden" id="re_id" value="{{\Illuminate\Support\Facades\Route::input('re_id')}}">
+                    <input type="hidden" id="info_add_url" value="{{url('/re_add_info')}}">
                 </form>
         </div>
             <div class="modal-footer">

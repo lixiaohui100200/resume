@@ -101,9 +101,20 @@ $(function(){
 
         }
         if (username.length != 0 && tel_phone.length !=0 && email.length != 0){
-            const info =
-            console.log(info)
-
+            const re_id = $('#re_id').val();
+            const url = $('#info_add_url').val();
+            const data = new FormData($('#information_data')[0])
+            $.ajax({
+                url:url +'/'+ re_id,
+                cache:false,
+                data:data,
+                type:'post',
+                contentType:false,
+                processData:false,
+                success:function () {
+                    
+                }
+            })
         }
 
 
