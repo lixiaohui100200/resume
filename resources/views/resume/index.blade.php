@@ -76,7 +76,7 @@
         <div class="col-sm-8 blog-main">
             <div class="resume_top">
                 <div class="resume_basic" id="information">
-                    <h2>张三</h2>
+                    <h2>{{$information['name'] or '姓名'}}</h2>
                     @if(empty($information))
                     <div class="null_message" data-toggle="modal" data-target="#information_model">
                         <span class="glyphicon glyphicon-plus-sign"></span>
@@ -609,13 +609,11 @@
 
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-@section('script')
 <script src="{{asset('resume/js/index.js')}}"></script>
-@show
 <script src="{{asset('layui/layui.js')}}"></script>
 
 <script>
-$
+
 </script>
 </body>
 </html>

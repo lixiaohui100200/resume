@@ -11,7 +11,9 @@ class IndexController extends Controller
     //添加新简历页面
     public function newResume()
     {
-        return view('resume.newResume');
+        $re_id = MyResume::show_my_re();
+
+        return view('resume.newResume',compact('re_id'));
     }
 
     public function add_resume()

@@ -69,8 +69,14 @@
 
 
 <div class="container">
-
-<button class="btn">添加简历</button>
+我的简历
+    @foreach($re_id as $k => $v)
+    <button class="btn">简历{{$k+1}}</button>
+        <input type="hidden" class="hidden_{{$k+1}}" value="{{myClass::encode($v->re_id)}}">
+    @endforeach
+    <br />
+    <br />
+<button class="btn add_btn">添加简历</button>
 
 
 </div><!-- /.container -->
@@ -88,7 +94,7 @@
 <script>
     $(function () {
         const data = {_token:'{{csrf_token()}}'}
-        $('.btn').on('click',function () {
+        $('.add_btn').on('click',function () {
             $.ajax({
                 url:'{{url('/add_res')}}',
                 type:'post',
@@ -97,6 +103,12 @@
                     location.href='{{url('/resume')}}'+'/'+data
                 }
             })
+        })
+        
+        $('.btn').on('click',function () {
+            const id = $(this).html().substring(2)
+            const data = $('.hidden_'+id).val()
+            location.href='{{url('/resume')}}' + '/' +data
         })
     })
 </script>
