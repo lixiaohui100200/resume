@@ -137,8 +137,10 @@ class ResumeController extends Controller
     //添加或修改基本信息
     public function add_information(Request $request,$re_id)
     {
+        date_default_timezone_set('PRC');
         $re_id = \myClass::decode($re_id);
-        return $re_id;
+        $res = Information::is_exist($re_id);
+
         if ($request->isMethod('post')){
             $input = $request->only('name','sex','birthday','nation','native_place',
                 'email','work_year','telphone');
@@ -168,11 +170,13 @@ class ResumeController extends Controller
                 'telphone.max' => '电话长度不能超过20',
             ];
             $validator = Validator::make($input,$rule,$message);
+            $input['re_id'] = $re_id;
+            //var_dump($input);die;
             if ($validator->passes()){
                 $input['user_id'] = 38;//session('user_id');
                 $input['last_time'] = date('Y-m-d H:i:s');
-                if ($info_id){
-                    if (Information::edit_info($info_id,$input)){
+                if ($res['info_id']){
+                    if (Information::edit_info($res['info_id'],$input)){
                         return $data = [
                             'state' => 200,
                             'msg' => '修改成功'
