@@ -395,9 +395,9 @@
                         <label>意向城市</label>
                         <input type="text" id="city" name="city" value="{{$intention->city or ''}}" class="form-control">
                     </div>
-                    <input type="hidden" id="intention_info_id" value="{{myClass::encode($information['info_id'])}}">
+                    <input type="hidden" id="intention_info_id" value="@if(empty($information['info_id'])) {{myClass::encode('asdf')}} @else {{myClass::encode($information['info_id'])}} @endif">
                     <input type="hidden" id="intention_url" value="{{url('re_add_inten')}}">
-                    <input type="hidden" id="intention_inten_id" value="@if(empty($intention->inten_id)) '' @else {{myClass::encode($intention->inten_id)}} @endif">
+                    <input type="hidden" id="intention_inten_id" value="@if(empty($intention->inten_id)) {{myClass::encode('asdf')}} @else {{myClass::encode($intention->inten_id)}} @endif">
 
                 </form>
             </div>

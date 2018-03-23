@@ -317,19 +317,27 @@ class ResumeController extends Controller
     }
 
     //添加或修改求职意向
-    public function add_intention(Request $request,$info_id,$inten_id=null)
+    public function add_intention(Request $request,$info_id=null,$inten_id=null)
     {
         //传入info_id 并加密
+//dd($info_id);
         $info_id = \myClass::decode($info_id);
-        if (!empty($inten_id)){
-            $inten_id = \myClass::decode($inten_id);
+        if ($info_id=='asdf'){
+            return $data=[
+                'state' => 100,
+                'msg' => '请先填写个人信息'
+            ];
+        }
+        $inten_id = \myClass::decode($inten_id);
+        if ($inten_id=='asdf'){
+            $inten_id='';
         }
         date_default_timezone_set('PRC');
         if ($request->isMethod('post')){
             $input = $request->only('money','job','city');
             $input = $this->html($input);
             $rule = [
-                'money' => 'required|max:8',
+                'money' => 'required|max:10',
                 'job' => 'required|max:20',
                 'city' => 'required|max:8',
             ];

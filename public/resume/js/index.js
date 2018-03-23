@@ -139,8 +139,8 @@ $(function(){
         if (money.length == 0) {
             $('#money').attr('data-content', '必填')
             $('#money').popover('show');
-        } else if (money.length > 20) {
-            $('#money').attr('data-content', '不能超过8')
+        } else if (money.length > 10) {
+            $('#money').attr('data-content', '不能超过10位')
             $('#money').popover('show');
             return;
         }
@@ -148,8 +148,8 @@ $(function(){
         if (city.length == 0) {
             $('#city').attr('data-content', '必填')
             $('#city').popover('show');
-        } else if (city.length > 20) {
-            $('#city').attr('data-content', '不能超过8')
+        } else if (city.length > 8) {
+            $('#city').attr('data-content', '不能超过8位')
             $('#city').popover('show');
             return;
         }
@@ -159,7 +159,7 @@ $(function(){
             const url = $('#intention_url').val();
             const data = new FormData($('#intention_data')[0])
             $.ajax({
-                url:url +'/'+ info_id +'/'+ inten_id,
+                url:url +'/'+info_id+'/'+ inten_id,
                 cache:false,
                 data:data,
                 type:'post',
@@ -171,6 +171,9 @@ $(function(){
                         setTimeout(function () {
                             location.href=location.href
                         },1000)
+                    }
+                    if (data.state ==100){
+                        layer.msg(data.msg, {icon:2})
                     }
                 }
             })
