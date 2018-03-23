@@ -27,6 +27,6 @@ class Work extends Model
 
     static public function get_work($info_id)
     {
-        return self::where('info_id',$info_id)->first()->toArray();
+        return self::where('info_id',$info_id)->first();
     }
 }

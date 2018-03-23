@@ -26,6 +26,6 @@ class Graduate extends Model
     //查询教育内容
     static public function get_edu($info_id)
     {
-        return self::where('info_id',$info_id)->first()->toArray();
+        return self::where('info_id',$info_id)->first();
     }
 }

@@ -33,6 +33,6 @@ class Information extends Model
     //查询基本信息是否存在
     static public function is_exist($re_id)
     {
-        return self::where('re_id',$re_id)->select('info_id')->first()->toArray();
+        return self::where('re_id',$re_id)->select('info_id')->first();
     }
 }

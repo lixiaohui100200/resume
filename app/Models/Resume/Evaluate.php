@@ -26,6 +26,6 @@ class Evaluate extends Model
     //查询
     static public function get_eval($info_id)
     {
-        return self::where('info_id',$info_id)->first()->toArray();
+        return self::where('info_id',$info_id)->first();
     }
 }

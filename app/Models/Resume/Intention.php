@@ -26,6 +26,6 @@ class Intention extends Model
     //查询求职意向
     static public function get_inten($info_id)
     {
-        return self::where('info_id',$info_id)->first()->toArray();
+        return self::where('info_id',$info_id)->first();
     }
 }

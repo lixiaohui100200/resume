@@ -51,9 +51,9 @@ $(function(){
     layui.use('form', function(){
     });
 
-    //提交表单
+    //提交个人信息内容
     $('.information_btn').on('click',function () {
-            const username = $.trim($('#username').val());
+        const username = $.trim($('#username').val());
             if (username.length == 0) {
                 $('#username').attr('data-content', '姓名不允许为空')
                 $('#username').popover('show');
@@ -62,8 +62,6 @@ $(function(){
                 $('#username').popover('show');
                 return;
             }
-
-
         const tel_phone = $.trim($('#tel_phone').val());
         var isEmail = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/
         if (tel_phone.length != 0) {
@@ -76,7 +74,7 @@ $(function(){
                 return;
             }
         }else if(tel_phone.length == 0){
-            $('#tel_phone').attr('data-content', '姓名不允许为空')
+            $('#tel_phone').attr('data-content', '电话不允许为空')
             $('#tel_phone').popover('show');
 
         }
@@ -111,13 +109,16 @@ $(function(){
                 type:'post',
                 contentType:false,
                 processData:false,
-                success:function () {
-                    
+                success:function (data) {
+                    if (data.state ==200){
+                        layer.msg(data.msg, {icon:1})
+                        setTimeout(function () {
+                            location.href=location.href
+                        },1000)
+                    }
                 }
             })
         }
-
-
     })
     $('#username').blur(function () {
         $('#username').attr('data-content', '')
@@ -130,5 +131,57 @@ $(function(){
     $('#tel_phone').blur(function () {
         $('#tel_phone').attr('data-content', '')
         $('#tel_phone').popover('hide');
+    })
+
+    //提交求职意向
+    $('.btn-intention').on('click',function () {
+        const money = $.trim($('#money').val());
+        if (money.length == 0) {
+            $('#money').attr('data-content', '必填')
+            $('#money').popover('show');
+        } else if (money.length > 20) {
+            $('#money').attr('data-content', '不能超过8')
+            $('#money').popover('show');
+            return;
+        }
+        const city = $.trim($('#city').val());
+        if (city.length == 0) {
+            $('#city').attr('data-content', '必填')
+            $('#city').popover('show');
+        } else if (city.length > 20) {
+            $('#city').attr('data-content', '不能超过8')
+            $('#city').popover('show');
+            return;
+        }
+        if (money.length != 0 && city.length !=0){
+            const info_id = $('#intention_info_id').val();
+            const inten_id = $('#intention_inten_id').val();
+            const url = $('#intention_url').val();
+            const data = new FormData($('#intention_data')[0])
+            $.ajax({
+                url:url +'/'+ info_id +'/'+ inten_id,
+                cache:false,
+                data:data,
+                type:'post',
+                contentType:false,
+                processData:false,
+                success:function (data) {
+                    if (data.state ==200){
+                        layer.msg(data.msg, {icon:1})
+                        setTimeout(function () {
+                            location.href=location.href
+                        },1000)
+                    }
+                }
+            })
+        }
+    })
+    $('#money').blur(function () {
+        $('#money').attr('data-content', '')
+        $('#money').popover('hide');
+    })
+    $('#city').blur(function () {
+        $('#city').attr('data-content', '')
+        $('#city').popover('hide');
     })
 })

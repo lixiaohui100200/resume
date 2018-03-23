@@ -55,7 +55,9 @@ class ResumeController extends Controller
                 return $age;
             }
             $information['age'] = $information['birthday'] ? birthday($information['birthday']):0;
+
         }
+        //dd($intention);
         return view('resume.index',compact('information','education','work','skill','project','intention','evaluate'));
 
 
@@ -175,8 +177,9 @@ class ResumeController extends Controller
             if ($validator->passes()){
                 $input['user_id'] = 38;//session('user_id');
                 $input['last_time'] = date('Y-m-d H:i:s');
-                if ($res['info_id']){
-                    if (Information::edit_info($res['info_id'],$input)){
+
+                if (!empty($res)){
+                    if (Information::edit_info($res->info_id,$input)){
                         return $data = [
                             'state' => 200,
                             'msg' => '修改成功'
@@ -314,22 +317,26 @@ class ResumeController extends Controller
     }
 
     //添加或修改求职意向
-    public function add_intention(Request $request,$inten_id=null)
+    public function add_intention(Request $request,$info_id,$inten_id=null)
     {
         //传入info_id 并加密
+        $info_id = \myClass::decode($info_id);
+        if (!empty($inten_id)){
+            $inten_id = \myClass::decode($inten_id);
+        }
         date_default_timezone_set('PRC');
         if ($request->isMethod('post')){
             $input = $request->only('money','job','city');
             $input = $this->html($input);
             $rule = [
-                'money' => 'required|max:4',
+                'money' => 'required|max:8',
                 'job' => 'required|max:20',
                 'city' => 'required|max:8',
             ];
 
             $message = [
                 'money.required' => '期望薪资不能为空',
-                'money.max' => '期望薪资不能超过4位',
+                'money.max' => '期望薪资不能超过8位',
                 'job.required' => '岗位不能为空',
                 'job.max' => '岗位长度不能超过20',
                 'city.required' => '就业城市不能为空',
@@ -337,7 +344,7 @@ class ResumeController extends Controller
             ];
             $validator = Validator::make($input,$rule,$message);
             if ($validator->passes()){
-                $input['info_id'] = 1;
+                $input['info_id'] = $info_id;
                 $input['add_time'] = date('Y-m-d H:i:s');
                 if ($inten_id){
                     if (Intention::edit_intention($inten_id,$input)){

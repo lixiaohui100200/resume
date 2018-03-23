@@ -26,6 +26,6 @@ class Skill extends Model
     //查询专业技能
     static public function get_sk($info_id)
     {
-        return self::where('sk_id',$info_id)->first()->toArray();
+        return self::where('sk_id',$info_id)->first();
     }
 }

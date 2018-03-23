@@ -103,26 +103,29 @@
                             <dt>
                                 <span class="resume_title">求职意向</span><span class="resume_title_t"></span>
                             </dt>
-                            <div class="null_message">
+                            @if(empty($intention))
+                            <div class="null_message"  data-toggle="modal" data-target="#intention_model">
                                 <span class="glyphicon glyphicon-plus-sign"></span>
                                 添加基本信息
                             </div>
-                            {{--<dd>
+                            @else
+                            <dd>
                                 <div class="intention_content">
-                                    <div class="intention_border" data-toggle="modal" data-target="#intenntion_model">
+                                    <div class="intention_border" data-toggle="modal" data-target="#intention_model">
                                         <span class="glyphicon glyphicon-pencil glyphicon_edit"></span>
                                         <div class="intention">
-                                            <span class="glyphicon glyphicon-lock"></span><span>求职意向</span>
+                                            <span class="glyphicon glyphicon-lock"></span><span>求职意向:&emsp;</span>{{$intention->job}}
                                         </div>
                                         <div class="money">
-                                            <span class="glyphicon glyphicon-jpy"></span><span>期望薪资</span>
+                                            <span class="glyphicon glyphicon-jpy"></span><span>期望薪资:&emsp;</span>{{$intention->money}}
                                         </div>
                                         <div class="city">
-                                            <span class="glyphicon glyphicon-object-align-bottom"></span><span>期望城市</span>
+                                            <span class="glyphicon glyphicon-object-align-bottom"></span><span>期望城市:&emsp;</span>{{$intention->city}}
                                         </div>
                                     </div>
                                 </div>
-                            </dd>--}}
+                            </dd>
+                                @endif
                         </dl>
                     </div>
                     <!--专业技能-->
@@ -362,7 +365,7 @@
 </div>
 
 <!-- Modal 求职意向-->
-<div class="modal fade bs-example-modal-sm" id="intenntion_model" tabindex="-1" role="dialog">
+<div class="modal fade bs-example-modal-sm" id="intention_model" tabindex="-1" role="dialog">
     <div class="modal-dialog " role="document" style="width: 358px;margin-top: 130px">
         <div class="modal-content" style="width: 360px">
             <div class="modal-header" style="background-color: #2bd8ae">
@@ -373,32 +376,36 @@
             </div>
 
             <div class="modal-body">
-                <form class="layui-form form-inline">
+                <form class="layui-form form-inline" id="intention_data">
+                    {{csrf_field()}}
                     <div class="form-group">
                             <label>求职意向</label>
-                            <select name="city">
-                                <option value="">请选择</option>
-                                <option value="PHP工程师">PHP工程师</option>
-                                <option value="WEB工程师">WEB工程师</option>
-                                <option value="PHP全栈工程师">PHP全栈工程师</option>
-                                <option value="WEB全栈工程师">WEB全栈工程师</option>
+                            <select name="job">
+                                <option @if(!empty($intention) && $intention['job']=='PHP工程师') selected @endif value="PHP工程师">PHP工程师</option>
+                                <option @if(!empty($intention) && $intention['job']=='WEB工程师') selected @endif value="WEB工程师">WEB工程师</option>
+                                <option @if(!empty($intention) && $intention['job']=='PHP全栈工程师') selected @endif value="PHP全栈工程师">PHP全栈工程师</option>
+                                <option @if(!empty($intention) && $intention['job']=='WEB全栈工程师') selected @endif value="WEB全栈工程师">WEB全栈工程师</option>
                             </select>
                         </div>
                     <div class="form-group">
                         <label>期望薪资</label>
-                        <input type="text"  class="form-control">
+                        <input type="text" id="money" name="money" value="{{$intention->money or ''}}" class="form-control">
                     </div>
                     <div class="form-group">
                         <label>意向城市</label>
-                        <input type="text" class="form-control">
+                        <input type="text" id="city" name="city" value="{{$intention->city or ''}}" class="form-control">
                     </div>
+                    <input type="hidden" id="intention_info_id" value="{{myClass::encode($information['info_id'])}}">
+                    <input type="hidden" id="intention_url" value="{{url('re_add_inten')}}">
+                    <input type="hidden" id="intention_inten_id" value="@if(empty($intention->inten_id)) '' @else {{myClass::encode($intention->inten_id)}} @endif">
+
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary information_btn"
+                <button type="button" class="btn btn-primary btn-intention"
                         style="background-color: #2bd8ae;border: 1px solid #2bd8ae">保存
                 </button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-default " data-dismiss="modal">取消</button>
             </div>
         </div>
     </div>

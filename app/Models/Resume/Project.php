@@ -26,7 +26,7 @@ class Project extends Model
     //查询项目
     static public function get_pro($info_id)
     {
-        return self::where('info_id',$info_id)->get()->toArray();
+        return self::where('info_id',$info_id)->get();
     }
 
 

@@ -15,7 +15,7 @@ Route::any('re_add_graduate/{edu_id?}','Home\ResumeController@add_graduate');
 //添加个人评价
 Route::any('re_add_eval/{eva_id?}','Home\ResumeController@add_evaluate');
 //添加求职意向
-Route::any('re_add_inten/{inten_id?}','Home\ResumeController@add_intention');
+Route::any('re_add_inten/{info_id}/{inten_id?}','Home\ResumeController@add_intention');
 //添加项目
 Route::any('re_add_pro/{pro_id?}','Home\ResumeController@add_project');
 //添加个人技能
