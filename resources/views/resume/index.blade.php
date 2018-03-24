@@ -106,7 +106,7 @@
                             @if(empty($intention))
                             <div class="null_message"  data-toggle="modal" data-target="#intention_model">
                                 <span class="glyphicon glyphicon-plus-sign"></span>
-                                添加基本信息
+                                添加求职意向
                             </div>
                             @else
                             <dd>
@@ -134,21 +134,21 @@
                             <dt>
                                 <span class="resume_title">专业技能</span><span class="resume_title_t"></span>
                             </dt>
+                            @if(empty($skill))
+                            <div class="null_message" data-toggle="modal" data-target="#skill_model">
+                                <span class="glyphicon glyphicon-plus-sign"></span>
+                                添加专业技能
+                            </div>
+                            @else
                             <dd>
                                 <div class="skill_border" data-toggle="modal" data-target="#skill_model">
                                     <div class="glyphicon glyphicon-pencil"></div>
                                     <div class="skill_content">
-                                        <p>1. 熟悉HTML5，CSS，JavaScript，jQuery，Ajax等前端技术的基本操作；</p>
-                                        <p>2. 熟悉JS中闭包的使用，熟悉JS原型链；</p>
-                                        <p> 3.熟悉原生JS。</p>
-                                        <p>3. 熟悉smarty模板引擎；</p>
-                                        <p>1. 掌握面向对象编程（OOP）思想；</p>
-                                        <p>2. 熟悉Laravel框架使用；</p>
-                                        <p>3. 掌握MVC设计思想；</p>
-                                        <p>4. 熟悉常用第三方API接口的使用；</p>
+                                        {!! $skill->skill !!}
                                     </div>
                                 </div>
                             </dd>
+                                @endif
                         </dl>
                     </div>
                     <!--工作经历-->
@@ -424,7 +424,7 @@
 
             <div class="modal-body ">
                 <form class="form-inline">
-                    <textarea class="form-control" rows="10" style="width: 620px"></textarea>
+                    <textarea class="form-control text_skill" rows="10" style="width: 620px"></textarea>
                 </form>
             </div>
             <div class="modal-footer">
@@ -620,7 +620,13 @@
 <script src="{{asset('layui/layui.js')}}"></script>
 
 <script>
+$(function () {
+    var data = '{!! $skill->skill !!}'
+    re = new RegExp("<br />","g");
+    var data = data.replace(re, "\n");
 
+    $('.text_skill').html(data)
+})
 </script>
 </body>
 </html>

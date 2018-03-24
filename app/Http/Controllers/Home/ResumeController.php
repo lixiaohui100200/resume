@@ -55,9 +55,10 @@ class ResumeController extends Controller
                 return $age;
             }
             $information['age'] = $information['birthday'] ? birthday($information['birthday']):0;
+            $skill->skill = str_ireplace('<w:br />','<br />',$skill->skill);
 
         }
-        //dd($intention);
+
         return view('resume.index',compact('information','education','work','skill','project','intention','evaluate'));
 
 
