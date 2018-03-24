@@ -187,4 +187,46 @@ $(function(){
         $('#city').attr('data-content', '')
         $('#city').popover('hide');
     })
+
+    //个人技能
+    $('.skill_btn').on('click',function () {
+        const skill_text = $.trim($('#skill_text').val());
+        if (skill_text.length == 0) {
+            $('#skill_text').attr('data-content', '必填')
+            $('#skill_text').popover('show');
+        } else if (skill_text.length > 800) {
+            $('#skill_text').attr('data-content', '不能超过800位')
+            $('#skill_text').popover('show');
+            return;
+        }
+        if (skill_text.length != 0){
+            const info_id = $('#skill_info_id').val();
+            const sk_id = $('#skill_sk_id').val();
+            const url = $('#skill_url').val();
+            const data = new FormData($('#skill_data')[0])
+            $.ajax({
+                url:url +'/'+info_id+'/'+ sk_id,
+                cache:false,
+                data:data,
+                type:'post',
+                contentType:false,
+                processData:false,
+                success:function (data) {
+                    if (data.state ==200){
+                        layer.msg(data.msg, {icon:1})
+                        setTimeout(function () {
+                            location.href=location.href
+                        },1000)
+                    }
+                    if (data.state ==100){
+                        layer.msg(data.msg, {icon:2})
+                    }
+                }
+            })
+        }
+    })
+    $('#skill_text').blur(function () {
+        $('#skill_text').attr('data-content', '')
+        $('#skill_text').popover('hide');
+    })
 })

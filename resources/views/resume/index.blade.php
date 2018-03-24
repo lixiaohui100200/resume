@@ -423,12 +423,17 @@
             </div>
 
             <div class="modal-body ">
-                <form class="form-inline">
-                    <textarea class="form-control text_skill" rows="10" style="width: 620px"></textarea>
+                <form class="form-inline" id="skill_data">
+                    {{csrf_field()}}
+                    <textarea class="form-control text_skill" name="skill" id="skill_text" rows="10" style="width: 620px"></textarea>
+                    <input type="hidden" id="skill_info_id" value="@if(empty($information['info_id'])) {{myClass::encode('asdf')}} @else {{myClass::encode($information['info_id'])}} @endif">
+                    <input type="hidden" id="skill_sk_id" value="@if(empty($skill->sk_id)) {{myClass::encode('asdf')}} @else {{myClass::encode($skill->sk_id)}} @endif">
+                    <input type="hidden" id="skill_url" value="{{url('re_add_sk')}}">
+
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary information_btn"
+                <button type="button" class="btn btn-primary skill_btn"
                         style="background-color: #2bd8ae;border: 1px solid #2bd8ae">保存
                 </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -621,7 +626,7 @@
 
 <script>
 $(function () {
-    var data = '{!! $skill->skill !!}'
+    var data = '@if(!empty($skill)){!! $skill->skill !!}@endif'
     re = new RegExp("<br />","g");
     var data = data.replace(re, "\n");
 

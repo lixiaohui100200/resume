@@ -19,7 +19,7 @@ Route::any('re_add_inten/{info_id}/{inten_id?}','Home\ResumeController@add_inten
 //添加项目
 Route::any('re_add_pro/{pro_id?}','Home\ResumeController@add_project');
 //添加个人技能
-Route::any('re_add_sk/{sk_id?}','Home\ResumeController@add_skill');
+Route::any('re_add_sk/{info_id}/{sk_id?}','Home\ResumeController@add_skill');
 //添加工作经历
 Route::any('re_add_work/{work_id?}','Home\ResumeController@add_work');
 

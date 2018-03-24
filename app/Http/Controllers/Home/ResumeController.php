@@ -55,7 +55,10 @@ class ResumeController extends Controller
                 return $age;
             }
             $information['age'] = $information['birthday'] ? birthday($information['birthday']):0;
-            $skill->skill = str_ireplace('<w:br />','<br />',$skill->skill);
+            if (!empty($skill)){
+                $skill->skill = str_ireplace('<w:br />','<br />',$skill->skill);
+            }
+
 
         }
 
@@ -453,9 +456,21 @@ class ResumeController extends Controller
     }
 
     //添加或修改个人技能
-    public function add_skill(Request $request,$sk_id=null)
+    public function add_skill(Request $request,$info_id,$sk_id=null)
     {
+
         //传入info_id 并且加密
+        $info_id = \myClass::decode($info_id);
+        if ($info_id=='asdf'){
+            return $data=[
+                'state' => 100,
+                'msg' => '请先填写个人信息'
+            ];
+        }
+        $sk_id = \myClass::decode($sk_id);
+        if ($sk_id=='asdf'){
+            $sk_id == '';
+        }
         date_default_timezone_set('PRC');
         if ($request->isMethod('post')){
             $input = $request->only('skill');
@@ -470,7 +485,7 @@ class ResumeController extends Controller
             ];
             $validator = Validator::make($input,$rule,$message);
             if ($validator->passes()){
-                $input['info_id'] = 1;
+                $input['info_id'] = $info_id;
                 $input['add_time'] = date('Y-m-d H:i:s');
                 if ($sk_id){
                     if (Skill::edit_sk($sk_id,$input)){
