@@ -229,4 +229,46 @@ $(function(){
         $('#skill_text').attr('data-content', '')
         $('#skill_text').popover('hide');
     })
+    
+    //个人评价
+    $('.evaluate_btn').on('click',function () {
+        const text_evaluate = $.trim($('.text_evaluate').val());
+        if (text_evaluate.length == 0) {
+            $('.text_evaluate').attr('data-content', '必填')
+            $('.text_evaluate').popover('show');
+        } else if (text_evaluate.length > 800) {
+            $('.text_evaluate').attr('data-content', '不能超过300位')
+            $('.text_evaluate').popover('show');
+            return;
+        }
+        if (skill_text.length != 0){
+            const info_id = $('#eval_info_id').val();
+            const eva_id = $('#eval_eva_id').val();
+            const url = $('#eval_url').val();
+            const data = new FormData($('#evaluate_data')[0])
+            $.ajax({
+                url:url +'/'+info_id+'/'+ eva_id,
+                cache:false,
+                data:data,
+                type:'post',
+                contentType:false,
+                processData:false,
+                success:function (data) {
+                    if (data.state ==200){
+                        layer.msg(data.msg, {icon:1})
+                        setTimeout(function () {
+                            location.href=location.href
+                        },1000)
+                    }
+                    if (data.state ==100){
+                        layer.msg(data.msg, {icon:2})
+                    }
+                }
+            })
+        }
+    })
+    $('.text_evaluate').blur(function () {
+        $('.text_evaluate').attr('data-content', '')
+        $('.text_evaluate').popover('hide');
+    })
 })

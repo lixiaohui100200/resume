@@ -13,7 +13,7 @@ Route::any('re_add_info/{re_id}','Home\ResumeController@add_information');
 //添加教育模块
 Route::any('re_add_graduate/{edu_id?}','Home\ResumeController@add_graduate');
 //添加个人评价
-Route::any('re_add_eval/{eva_id?}','Home\ResumeController@add_evaluate');
+Route::any('re_add_eval/{info_id}/{eva_id?}','Home\ResumeController@add_evaluate');
 //添加求职意向
 Route::any('re_add_inten/{info_id}/{inten_id?}','Home\ResumeController@add_intention');
 //添加项目

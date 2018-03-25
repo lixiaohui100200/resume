@@ -58,8 +58,11 @@ class ResumeController extends Controller
             if (!empty($skill)){
                 $skill->skill = str_ireplace('<w:br />','<br />',$skill->skill);
             }
+            if (!empty($evaluate)){
+                $evaluate->evaluate = str_ireplace('<w:br />','<br />',$evaluate->evaluate);
+            }
 
-
+            //dd($evaluate);
         }
 
         return view('resume.index',compact('information','education','work','skill','project','intention','evaluate'));
@@ -274,9 +277,19 @@ class ResumeController extends Controller
     }
 
     //添加或修改个人评价
-    public function add_evaluate(Request $request,$eva_id=null)
+    public function add_evaluate(Request $request,$info_id,$eva_id=null)
     {
-        //传入info_id 并且加密
+        $info_id = \myClass::decode($info_id);
+        if ($info_id=='asdf'){
+            return $data=[
+                'state' => 100,
+                'msg' => '请先填写个人信息'
+            ];
+        }
+        $eva_id = \myClass::decode($eva_id);
+        if ($eva_id=='asdf'){
+            $eva_id == '';
+        }
         date_default_timezone_set('PRC');
         if($request->isMethod('post')){
             $input = $request->only('evaluate');
@@ -290,7 +303,7 @@ class ResumeController extends Controller
             ];
             $validator = Validator::make($input,$rule,$message);
             if ($validator->passes()){
-                $input['info_id'] = 1;
+                $input['info_id'] = $info_id;
                 $input['add_time'] = date('Y-m-d H:i:s');
                 if ($eva_id){
                     if (Evaluate::edit_evaluate($eva_id,$input)){

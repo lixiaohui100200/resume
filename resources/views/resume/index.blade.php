@@ -218,29 +218,36 @@
                         </dl>
                     </div>
                     <!--教育经历-->
-                    <div class="work" id="education">
+                    <div class="work education" id="education">
                         <dl>
                             <dt>
                                 <span class="resume_title">教育经历</span><span class="resume_title_t"></span>
                             </dt>
+                            @if(empty($education))
+                                <div class="null_message" data-toggle="modal" data-target="#education_model">
+                                    <span class="glyphicon glyphicon-plus-sign"></span>
+                                    添加教育经历
+                                </div>
+                            @else
                             <dd>
-                                <div class="work" data-toggle="modal" data-target="#education_model">
+                                <div class="work education" data-toggle="modal" data-target="#education_model">
                                     <span class="glyphicon glyphicon-pencil"></span>
 
                                     <div>
-                                        <span class="glyphicon glyphicon-lock"></span><span>时间</span>
+                                        </span><span>时间:</span>&nbsp;{{$education->graduate_time}}
                                     </div>
                                     <div>
-                                        <span class="glyphicon glyphicon-jpy"></span><span>学校</span>
+                                        </span><span>学校:</span>&nbsp;{{$education->edu_school}}
                                     </div>
                                     <div>
-                                        <span class="glyphicon glyphicon-object-align-bottom"></span><span>专业</span>
+                                        </span><span>专业:</span>&nbsp;{{$education->edu_major}}
                                     </div>
                                     <div>
-                                        <span class="glyphicon glyphicon-object-align-bottom"></span><span>学历</span>
+                                        </span><span>学历:</span>&nbsp;{{$education->education}}
                                     </div>
                                 </div>
                             </dd>
+                            @endif
                         </dl>
                     </div>
                     <!--个人评价-->
@@ -249,15 +256,22 @@
                             <dt>
                                 <span class="resume_title">个人评价</span><span class="resume_title_t"></span>
                             </dt>
+                            @if(empty($evaluate))
+                                <div class="null_message" data-toggle="modal" data-target="#evaluate_model">
+                                    <span class="glyphicon glyphicon-plus-sign"></span>
+                                    添加个人评价
+                                </div>
+                            @else
                             <dd>
-                                <div class="work" data-toggle="modal" data-target="#inter_model">
+                                <div class="work" data-toggle="modal" data-target="#evaluate_model">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                     <div class="intention">
-                                        <span class="glyphicon glyphicon-lock"></span><span>个人评价内容</span>
+                                        @if(!empty($evaluate)) {!! $evaluate->evaluate !!} @endif
                                     </div>
 
                                 </div>
                             </dd>
+                            @endif
                         </dl>
                     </div>
                 </div>
@@ -558,33 +572,32 @@
                 <form class="layui-form form-inline">
                     <div class="form-group">
                         <label>时间</label>
-                        <input type="text" class="layui-input form-control" id="test9" placeholder="XX年XX月-XX年XX月">
+                        <input type="text" class="layui-input form-control edu_text" id="test9" placeholder="@if(empty($education))XX年XX月-XX年XX月@else{{$education->graduate_time}} @endif">
                     </div>
 
                     <div class="form-group">
                         <label>学校名称</label>
-                        <input type="text"  class="form-control">
+                        <input type="text"  class="form-control" value="{{$education->edu_school or ''}}">
                     </div>
                     <div class="form-group">
                         <label>专业</label>
-                        <input type="text"  class="form-control">
+                        <input type="text"  class="form-control" value="{{$education->edu_major or ''}}">
                     </div>
 
                     <div class="form-group">
                         <label>学历</label>
                         <select name="city">
-                            <option value="">请选择</option>
-                            <option value="大专">大专</option>
-                            <option value="本科">本科</option>
-                            <option value="硕士">硕士</option>
-                            <option value="博士">博士</option>
+                            <option @if(!empty($education->education)) selected @endif value="大专">大专</option>
+                            <option @if(!empty($education->education)) selected @endif value="本科">本科</option>
+                            <option @if(!empty($education->education)) selected @endif value="硕士">硕士</option>
+                            <option @if(!empty($education->education)) selected @endif value="博士">博士</option>
                         </select>
                     </div>
 
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary information_btn"
+                <button type="button" class="btn btn-primary education_btn"
                         style="background-color: #2bd8ae;border: 1px solid #2bd8ae">保存
                 </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -594,23 +607,27 @@
 </div>
 
 <!-- Modal 个人评价-->
-<div class="modal fade" id="inter_model" tabindex="-1" role="dialog">
+<div class="modal fade" id="evaluate_model" tabindex="-1" role="dialog">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #2bd8ae">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" >个人技能</h4>
+                <h4 class="modal-title" >个人评价</h4>
             </div>
 
             <div class="modal-body ">
-                <form class="form-inline">
-                    <textarea class="form-control" rows="10" style="width: 620px"></textarea>
+                <form class="form-inline" id="evaluate_data">
+                    {{csrf_field()}}
+                    <textarea class="form-control text_evaluate" name="evaluate" rows="10" style="width: 620px"></textarea>
+                    <input type="hidden" id="eval_info_id" value="@if(empty($information['info_id'])) {{myClass::encode('asdf')}} @else {{myClass::encode($information['info_id'])}} @endif">
+                    <input type="hidden" id="eval_eva_id" value="@if(empty($evaluate->eva_id)) {{myClass::encode('asdf')}} @else {{myClass::encode($evaluate->eva_id)}} @endif">
+                    <input type="hidden" id="eval_url" value="{{url('re_add_eval')}}">
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary information_btn"
+                <button type="button" class="btn btn-primary evaluate_btn"
                         style="background-color: #2bd8ae;border: 1px solid #2bd8ae">保存
                 </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -631,6 +648,11 @@ $(function () {
     var data = data.replace(re, "\n");
 
     $('.text_skill').html(data)
+
+    var data1 = '@if(!empty($evaluate)){!! $evaluate->evaluate !!}@endif'
+    var data1 = data1.replace(re, "\n");
+
+    $('.text_evaluate').html(data1)
 })
 </script>
 </body>
